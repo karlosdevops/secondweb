@@ -11,14 +11,15 @@
 
 import threading
 import webbrowser
-import BaseHTTPServer
-import SimpleHTTPServer
+import http.server
+
+
 
 FILE = 'frontend.html'
 PORT = 8080
 
 
-class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class TestHandler(http.server.SimpleHTTPRequestHandler):
     """The test example handler."""
 
     def do_POST(self):
@@ -42,7 +43,7 @@ def open_browser():
 def start_server():
     """Start the server."""
     server_address = ("", PORT)
-    server = BaseHTTPServer.HTTPServer(server_address, TestHandler)
+    server = http.server.HTTPServer(server_address, TestHandler)
     try:
         server.serve_forever()
     except(KeyboardInterrupt):
